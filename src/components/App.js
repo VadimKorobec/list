@@ -6,11 +6,14 @@ import { TaskForm } from "./TaskForm/TaskForm";
 import { ListTasks } from "./ListTasks/ListTasks";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { PokemonList } from "./PokemonList/PokemonList";
+import { PokemonForm } from "./PokemonForm/PokemonForm";
+import { fetchPokemon } from "./services/pokemonApi";
 
 export const App = () => {
   const [tasks, setTasks] = useLocalStorage("tasks", []);
-  const [pokemons, setPokemon] = useState([]);
-  console.log(pokemons)
+  const [pokemon, setPokemon] = useState([]);
+ 
+  console.log(pokemon)
 
   const addTask = ({ title, desc }) => {
     setTasks((prevTasks) => [...prevTasks, { id: nanoid(), title, desc }]);
@@ -20,26 +23,26 @@ export const App = () => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
-  useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon/1")
-      .then((response) => {
-        return response.json();
-      })
-      .then((pokemons) => {
-        console.log(pokemons);
-        setPokemon(pokemons);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+// //  const handleSubmit = (query)=>{
+//   setQuery(query)
+//  }
 
-  return (
+useEffect(()=>{
+  const fetchData =()=>{
+    const resp = fetchPokemon()
+    console.log(resp.json())
+  }
+  fetchData()
+},[])
+
+
+ return (
     <>
       <Layout>
         <TaskForm onSubmit={addTask} />
         <ListTasks onDelete={deleteTask} tasks={tasks} />
-        <PokemonList pokemons={pokemons} />
+        <PokemonForm />
+        <PokemonList pokemon={pokemon} />
       </Layout>
     </>
   );

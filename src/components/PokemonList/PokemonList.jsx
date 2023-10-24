@@ -1,11 +1,11 @@
 import { PokemonItem } from "../PokemonItem/PokemonItem";
 
-export const PokemonList = ({ pokemons }) => {
-  console.log(pokemons.results);
+export const PokemonList = ({ pokemon }) => {
+  console.log(pokemon.results);
   return (
     <>
       <ul>
-        {[pokemons].map((item) => (
+        {[pokemon].map((item) => (
           <li key={item.id}>
             <PokemonItem pokemon={item}  />
           </li>
