@@ -7,7 +7,6 @@ import { ListTasks } from "./ListTasks/ListTasks";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { PokemonList } from "./PokemonList/PokemonList";
 import { PokemonForm } from "./PokemonForm/PokemonForm";
-import { fetchPokemon } from "./services/pokemonApi";
 
 export const App = () => {
   const [tasks, setTasks] = useLocalStorage("tasks", []);
@@ -23,15 +22,18 @@ export const App = () => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
-  // //  const handleSubmit = (query)=>{
-  //   setQuery(query)
-  //  }
+  
 
   useEffect(() => {
-    const fetchData = () => {
-      const resp = fetchPokemon();
-    };
-    fetchData();
+    const fetchPokemon =()=>{
+      fetch('https://pokeapi.co/api/v2/pokemon/').then(response =>{
+        return response.json()
+      }).then(pokemon =>{
+        console.log(pokemon)
+        setPokemon(prevState => [...prevState,...pokemon.results])
+      })
+    }
+    fetchPokemon()
   }, []);
 
   return (

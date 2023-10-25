@@ -5,7 +5,7 @@ export const PokemonList = ({ pokemon }) => {
   return (
     <>
       <ul>
-        {[pokemon].map((item) => (
+        {pokemon.map((item) => (
           <li key={item.id}>
             <PokemonItem pokemon={item}  />
           </li>
