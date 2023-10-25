@@ -12,8 +12,8 @@ import { fetchPokemon } from "./services/pokemonApi";
 export const App = () => {
   const [tasks, setTasks] = useLocalStorage("tasks", []);
   const [pokemon, setPokemon] = useState([]);
- 
-  console.log(pokemon)
+
+  console.log(pokemon);
 
   const addTask = ({ title, desc }) => {
     setTasks((prevTasks) => [...prevTasks, { id: nanoid(), title, desc }]);
@@ -23,20 +23,18 @@ export const App = () => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
-// //  const handleSubmit = (query)=>{
-//   setQuery(query)
-//  }
+  // //  const handleSubmit = (query)=>{
+  //   setQuery(query)
+  //  }
 
-useEffect(()=>{
-  const fetchData =()=>{
-    const resp = fetchPokemon()
-    console.log(resp.json())
-  }
-  fetchData()
-},[])
+  useEffect(() => {
+    const fetchData = () => {
+      const resp = fetchPokemon();
+    };
+    fetchData();
+  }, []);
 
-
- return (
+  return (
     <>
       <Layout>
         <TaskForm onSubmit={addTask} />
